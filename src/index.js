@@ -1,11 +1,25 @@
 import './style.sass'
 
 async function getWeatherByCity(city) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=79000ca5329e6de29a91aff757bde56a`, { mode: 'cors' })
-    if (response.status == 404) {
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=d613739b96b6418a920153139211903&q=${city}`, { mode: 'cors' })
+    if (response.status == 400) {
         console.log('Error - City not found')
     } else {
-        const weatherData = await response.json()
+        const apiData = await response.json()
+        const weatherData = processJson(apiData)
         console.log(weatherData)
     }
 }
+
+function processJson(jsonData) {
+    return  {
+        location: `${jsonData.location.name}, ${jsonData.location.country}`,
+        temp: `Temp: ${jsonData.current.temp_c}`,
+        feelsLike:`Max: ${jsonData.current.feelslike_c}`,
+        humidity: `Min: ${jsonData.current.humidity}`,
+        weather: `Weather: ${jsonData.current.condition.text}`,
+        localTime: `Local time: ${jsonData.location.localtime}`
+    }
+}
+
+getWeatherByCity('paris')
