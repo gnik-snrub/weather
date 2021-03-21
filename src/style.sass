@@ -1,23 +1,131 @@
-$primary-color: cornflowerblue
-$secondary-color: rgb(30, 25, 85)
+@font-face
+    font-family: 'Landasans'
+    src: url('./LandasansMedium.otf') format('opentype')
+
+$font: 'Landasans'
+$primary-color: #0620314b
+$font-color: rgb(235, 201, 150)
 
 =center()
     display: flex
     align-items: center
     justify-content: center
 
+=size($w, $h)
+    width: $w
+    height: $h
+
 body, html
     +center()
+    +size(100%, 100%)
+    font-family: $font
+
+*:focus
+    outline: none
+
+#video-background
+    +size(106%, 106%)
+    position: fixed
+    pointer-events: none
+    z-index: -99
+
+#content
+    +size(100vw, 100vh)
+    color: $font-color
+    display: grid
+    grid-template-columns: auto auto auto
+    grid-template-rows: 64px 15vh 45vh auto
+    grid-template-areas: "loading loading loading" ". . ." ". content-wrapper ." ". . ."
+    place-items: center
+
+#content-wrapper
+    +size(100%, 100%)
+    grid-area: content-wrapper
+    display: grid
+    grid-template-rows: auto min-content
     background-color: $primary-color
-    width: 100%
-    height: 100%
+    border-radius: 15px
+    backdrop-filter: blur(10px)
+    transition: 0.3s
+    padding: 20px 0
 
-.content
+#detail-wrapper
+    display: grid
+    grid-template-rows: 40% auto
+    transition: 0.3s
+    
+#location-wrapper
+    display: grid
+    grid-template-rows: auto auto
+    grid-template-columns: auto auto
+    grid-template-areas: "city city" "country time"
+
+%locations
+    font-size: 2.5rem
+    display: flex
+    align-items: center
+    justify-content: center
+
+#time-display
+    @extend %locations
+    grid-area: time
+
+#city-display
+    @extend %locations
+    font-size: 3.5rem
+    grid-area: city
+
+#country-display
+    @extend %locations
+    grid-area: country
+
+#weather-details-display
+    display: grid
+    grid-template-rows: 33% 33% 33%
+    grid-template-columns: auto auto
+    grid-template-areas: "temp weather-wrap" "temp feels" "temp humid"
+
+%weather
     +center()
-    background-color: $secondary-color
-    width: 50%
-    height: 50%
-    flex-direction: column
+    font-size: 2rem
 
-#testout
-    color: $primary-color
+#temp-display
+    @extend %weather
+    grid-area: temp
+    font-size: 8rem
+#temp-display:after
+    margin-top: -75px
+    content: attr(data-deg)
+    font-size: 2.5rem
+
+#feels-display
+    @extend %weather
+    grid-area: feels
+
+#humid-display
+    @extend %weather
+    grid-area: humid
+
+#weather-display-wrapper
+    @extend %weather
+    grid-area: weather-wrap
+
+#searchbox
+    border: 0px transparent
+    background-color: transparent
+    color: $font-color
+    text-align: center
+    font-size: 3rem
+    font-family: $font
+#searchbox::placeholder
+    color: $font-color
+    font-family: $font
+
+#loading
+    +size(64px, 64px)
+    grid-area: loading
+    transition: 0.3s
+
+.hidden
+    opacity: 0
+    transform: translateY(-64px)

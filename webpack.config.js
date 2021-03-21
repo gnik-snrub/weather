@@ -15,6 +15,14 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.(png|gif)$/i,
+                use: 'file-loader'
+            },
+            {
+                test: /\.otf$/i,
+                type: 'asset/resource'
             }
         ]
     },
