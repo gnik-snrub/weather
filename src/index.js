@@ -52,7 +52,7 @@ function generateDomElements() {
 function backgroundVideo() {
     const vid = document.createElement('iframe')
     vid.id = 'video-background'
-    vid.src = `https://www.youtube.com/embed/z4yB65vh1DI?autoplay=1&mute=1&loop=1&controls=0`
+    vid.src = `https://www.youtube.com/embed/8YIIZL2n8lc?autoplay=1&mute=1&loop=1&controls=0`
     document.body.appendChild(vid)
 }
 
